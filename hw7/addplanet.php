@@ -5,26 +5,44 @@ include ('planets.php');
 // var_dump($planets);
 file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
-
-//validate the name input 
-//The name has to be validated with this regular expression:  \^P\d{1,2}[A-Z]-\d{3,4}$\
-$name = $_GET['name'];
-if (!preg_match('/^P\d{1,2}[A-Z]-\d{3,4}$/', $name)) {
-    echo "<div role='alert' class='alert alert-error mb-2'>
-    <span>Error! Task failed successfully.</span>
-</div>";
-}
-else {
+/* addplanet.php
+Validate the form based on these instructions:
+The name has to be validated with this regular expression:  \^P\d{1,2}[A-Z]-\d{3,4}$\
+All the other fields are required. Validate them with PHP.
+The checkbox should be checked.
+Display the error messages based on the validation in the div with the 'errors' class.
+Display the success message if we have no errors, if we have, display the errors div instead of that.
+If everything is alright, put the new planet into the json file.
+Save the state of ALL the input field, including the checkbox and the select fields too, so when we refresh the page, the correctly entered data stays there.*/
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $name = $_GET['name'];
     $info = $_GET['info'];
     $gate = $_GET['gate'];
-    $notanalien = isset($_GET['notanalien']) ? true : false;
-    $newplanet = ["name" => $name, "info" => $info, "gate" => $gate, "notanalien" => $notanalien];
-    array_push($planets, $newplanet);
-    file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    echo "<div role='alert' class='alert alert-success mb-2'>
-    <span>Planet $name has been added successfully.</span>
-</div>";
-
+    $notanalien = $_GET['notanalien'];
+    $errors = [];
+    $success = false;
+    if (!preg_match('/^P\d{1,2}[A-Z]-\d{3,4}$/', $name)) {
+        $errors[] = 'The name has to be validated with this regular expression:  \^P\d{1,2}[A-Z]-\d{3,4}$\' ';
+    }
+    if (empty($info)) {
+        $errors[] = 'The info field is required';
+    }
+    if (empty($gate)) {
+        $errors[] = 'The gate field is required';
+    }
+    if (empty($notanalien)) {
+        $errors[] = 'The checkbox should be checked';
+    }
+    if (empty($errors)) {
+        $planets[] = [
+            'name' => $name,
+            'info' => $info,
+            'gate' => $gate,
+            'notanalien' => $notanalien
+        ];
+        file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        $success = true;
+    }
 }
 
 
@@ -53,7 +71,7 @@ else {
                 <div class="label">
                     <span class="label-text">Name</span>
                 </div>
-                <input type="text" name="name"   placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                <input type="text" name="name" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
             </label>
             <label class="form-control w-full max-w-xs">
                 <div class="label">
