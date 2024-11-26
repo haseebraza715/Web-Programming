@@ -14,6 +14,18 @@ if (!preg_match('/^P\d{1,2}[A-Z]-\d{3,4}$/', $name)) {
     <span>Error! Task failed successfully.</span>
 </div>";
 }
+else {
+    $info = $_GET['info'];
+    $gate = $_GET['gate'];
+    $notanalien = isset($_GET['notanalien']) ? true : false;
+    $newplanet = ["name" => $name, "info" => $info, "gate" => $gate, "notanalien" => $notanalien];
+    array_push($planets, $newplanet);
+    file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    echo "<div role='alert' class='alert alert-success mb-2'>
+    <span>Planet $name has been added successfully.</span>
+</div>";
+
+}
 
 
 
