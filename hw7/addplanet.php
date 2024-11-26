@@ -1,5 +1,4 @@
 <?php
-// Initialize variables
 $errors = [];
 $success = false;
 $name = $_GET['name'] ?? '';
@@ -7,7 +6,6 @@ $info = $_GET['info'] ?? '';
 $gate = $_GET['gate'] ?? '';
 $notanalien = isset($_GET['notanalien']) ? 'Yes' : 'No';
 
-// Validate form inputs
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (empty($name) || !preg_match('/^P\d{1,2}[A-Z]-\d{3,4}$/', $name)) {
         $errors[] = 'The name must match the pattern: ^P\d{1,2}[A-Z]-\d{3,4}$';
@@ -22,12 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $errors[] = 'You must confirm that you are not an alien.';
     }
 
-    // If no errors, save the data
     if (empty($errors)) {
-        // Read existing planets
         $planets = json_decode(file_get_contents('planets.json'), true) ?? [];
 
-        // Add the new planet
         $planets[] = [
             'name' => $name,
             'info' => $info,
@@ -35,10 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'notanalien' => $notanalien
         ];
 
-        // Save to JSON file
         file_put_contents('planets.json', json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
-        // Set success flag
         $success = true;
     }
 }

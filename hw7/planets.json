@@ -273,5 +273,11 @@
         "name": "P3X-984",
         "info": "unknown",
         "gate": "Not visited yet"
+    },
+    {
+        "name": "P12A-1234",
+        "info": "Friendly",
+        "gate": "Reachable",
+        "notanalien": "Yes"
     }
 ]
