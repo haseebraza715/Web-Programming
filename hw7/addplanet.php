@@ -3,7 +3,21 @@
 <?php
 include ('planets.php');
 // var_dump($planets);
-file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))
+file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+
+//validate the name input 
+//The name has to be validated with this regular expression:  \^P\d{1,2}[A-Z]-\d{3,4}$\
+$name = $_GET['name'];
+if (!preg_match('/^P\d{1,2}[A-Z]-\d{3,4}$/', $name)) {
+    echo "<div role='alert' class='alert alert-error mb-2'>
+    <span>Error! Task failed successfully.</span>
+</div>";
+}
+
+
+
+
 
 ?>
 
@@ -27,7 +41,7 @@ file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON
                 <div class="label">
                     <span class="label-text">Name</span>
                 </div>
-                <input type="text" name="name" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                <input type="text" name="name"   placeholder="Type here" class="input input-bordered w-full max-w-xs" />
             </label>
             <label class="form-control w-full max-w-xs">
                 <div class="label">
