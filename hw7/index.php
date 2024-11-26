@@ -1,6 +1,4 @@
 <?php
-    include ('planets.php');
-
     $theme = $_GET['theme'] ?? '';
     $search = $_GET['search'] ?? '';
     $infoFilter = $_GET['info'] ?? '';
@@ -17,6 +15,15 @@
 
     $badgeClass = isset($badgeColors[$infoFilter]) ? $badgeColors[$infoFilter] : '';
     $buttonClass = $gate === 'Reachable' ? 'btn-primary' : 'btn-disabled';
+
+    //adding data from json file to planets array
+    $planets = json_decode(file_get_contents('planets.json'), true);
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>

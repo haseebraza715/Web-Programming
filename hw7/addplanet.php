@@ -4,7 +4,8 @@
 include ('planets.php');
 // var_dump($planets);
 file_put_contents("planets.json", json_encode($planets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))
-    ?>
+
+?>
 
 <head>
     <meta charset="UTF-8">
