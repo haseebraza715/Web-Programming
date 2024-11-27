@@ -1,3 +1,34 @@
+<?php
+    $players = json_decode(file_get_contents('players.json'), true);
+    $data = $_GET;
+    $errors = [];
+
+    function validate($data, $errors){
+
+        if (!isset($data['name']) || $data['name'] == '' || strlen(trim($data['name'])) < 4){
+            $errors[] = 'Name is required and must be at least 4 characters long';
+        }
+        else{
+            $name = $data['name'];
+        }
+
+
+
+        
+    }
+
+
+
+?>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en" data-theme="forest">
 
