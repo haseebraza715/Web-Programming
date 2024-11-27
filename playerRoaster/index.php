@@ -72,13 +72,12 @@
             $players = json_decode(file_get_contents('players.json'), true);
             $badge = array('badge-primary', 'badge-outline');
             
-            
+           for ($i = 0; $i < count($players); $i++){ 
             $img = $players[$i]['img'];
             $goals2024 = $players[$i]['goals2024'];
             $goals2023 = $players[$i]['goals2023'];
-
-
-                echo
+            $name = $players[$i]['name'];
+            echo
                 '<div class="card card-side bg-base-300 shadow-xl">
                     <figure class="h-full"><img src="./img/'.$img.'.jpg" class="h-full w-48 object-cover" />
                     </figure>
@@ -111,7 +110,9 @@
                         </div>
                     </div>
                 </div>';
+            }
         ?>
+
     </div>
 </body>
 
